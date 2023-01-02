@@ -2,18 +2,18 @@ package com.ensa.mscustomer.responses;
 
 public class CustomerResponse {
 	
-	private Long id;
+	private String customerId;
 	private String firstName;
 	private String lastName;
 	private String adress;
 	private String city;
 	private String email;
 	
-	public Long getId() {
-		return id;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	public String getFirstName() {
 		return firstName;

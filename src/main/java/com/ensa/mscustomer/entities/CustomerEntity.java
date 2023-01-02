@@ -18,6 +18,9 @@ public class CustomerEntity implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@Column(nullable=false)
+	private String customerId;
 		
 	@Column(nullable=false, length=50)
 	private String firstName;
@@ -40,6 +43,15 @@ public class CustomerEntity implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getFirstName() {

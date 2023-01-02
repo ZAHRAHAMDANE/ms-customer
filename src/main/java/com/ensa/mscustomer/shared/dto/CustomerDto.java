@@ -8,7 +8,9 @@ public class CustomerDto implements Serializable { // la classe qui transfere la
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private Long id;
+	private String customerId;
 	private String firstName;
 	private String lastName;
 	private String adress;
@@ -20,6 +22,12 @@ public class CustomerDto implements Serializable { // la classe qui transfere la
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	public String getFirstName() {
 		return firstName;

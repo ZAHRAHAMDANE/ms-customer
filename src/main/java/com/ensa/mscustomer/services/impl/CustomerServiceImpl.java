@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ensa.mscustomer.entities.CustomerEntity;
 import com.ensa.mscustomer.repositories.CustomerRepository;
 import com.ensa.mscustomer.services.CustomerService;
+import com.ensa.mscustomer.shared.Utils;
 import com.ensa.mscustomer.shared.dto.CustomerDto;
 
 @Service
@@ -15,13 +16,22 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 	
+	@Autowired
+	Utils util;
+	
 	@Override
 	public CustomerDto createCustomer(CustomerDto customer) {
 		// TODO Auto-generated method stub
 		
+		CustomerEntity checkCustomer = customerRepository.findByEmail(customer.getEmail());
+		
+		if(checkCustomer != null) throw new RuntimeException("Customer alrady exists !");
+		
 		CustomerEntity customerEntity = new CustomerEntity();
 		
 		BeanUtils.copyProperties(customer, customerEntity);
+		
+		customerEntity.setCustomerId(util.generateCustomerId(32)); 
 		
 		CustomerEntity newCutomer = customerRepository.save(customerEntity);
 		
