@@ -69,9 +69,12 @@ public class CustomerController {
 		return customerResponse;
 	}
 	
-	@DeleteMapping
-	public String deleteCustomer() {
-		return "delete customer was called";
+	@DeleteMapping(path="{id}")
+	public String deleteCustomer(@PathVariable String id) {
+
+		customerService.deleteCustomer(id);
+		
+		return "Custumer suprimer";
 	}
 
 }

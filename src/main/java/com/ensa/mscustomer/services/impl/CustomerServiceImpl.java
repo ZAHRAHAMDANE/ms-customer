@@ -76,4 +76,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return customer;
 	}
 
+	@Override
+	public void deleteCustomer(String customerId) {
+		// TODO Auto-generated method stub
+		CustomerEntity customerEntity = customerRepository.findByCustomerId(customerId);
+		
+		if(customerEntity == null) throw new RuntimeException("Customer not found !");
+		
+		customerRepository.delete(customerEntity);
+		
+	}
+
 }
