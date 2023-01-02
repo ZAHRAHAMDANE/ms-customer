@@ -5,4 +5,6 @@ import com.ensa.mscustomer.shared.dto.CustomerDto;
 public interface CustomerService {
 	
 	CustomerDto createCustomer(CustomerDto customerDto);
+	
+	CustomerDto getCustomerByCustomerId(String customerId);
 }

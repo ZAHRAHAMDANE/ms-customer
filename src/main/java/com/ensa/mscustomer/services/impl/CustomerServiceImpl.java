@@ -42,4 +42,17 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDto;
 	}
 
+	@Override
+	public CustomerDto getCustomerByCustomerId(String customerId) {
+		// TODO Auto-generated method stub
+		CustomerEntity customerEntity = customerRepository.findByCustomerId(customerId);
+		
+		if(customerEntity == null) throw new RuntimeException("Customer not found !");
+		
+		CustomerDto customerDto = new CustomerDto();
+		BeanUtils.copyProperties(customerEntity, customerDto);
+		
+		return customerDto;
+	}
+
 }

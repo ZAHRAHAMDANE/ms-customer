@@ -9,5 +9,7 @@ import com.ensa.mscustomer.entities.CustomerEntity;
 public interface CustomerRepository extends CrudRepository<CustomerEntity, Long> {
 	
 	CustomerEntity findByEmail(String email);
+	
+	CustomerEntity findByCustomerId(String customerId);
 
 }
