@@ -20,7 +20,7 @@ import com.ensa.mscustomer.shared.dto.CustomerDto;
 public class CustomerController {
 	
 	@Autowired
-	CustomerService customerService;
+	CustomerService customerService; // l'injection de depondance 
 	
 	@GetMapping
 	public String getCustomer() {
