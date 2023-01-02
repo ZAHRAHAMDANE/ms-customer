@@ -55,4 +55,25 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDto;
 	}
 
+	@Override
+	public CustomerDto updateCustomer(String customerId, CustomerDto customerDto) {
+
+		CustomerEntity customerEntity = customerRepository.findByCustomerId(customerId);
+		
+		if(customerEntity == null) throw new RuntimeException("Customer not found !");
+		
+		customerEntity.setFirstName(customerDto.getFirstName());
+		customerEntity.setLastName(customerDto.getLastName());
+		customerEntity.setAdress(customerDto.getAdress());
+		customerEntity.setCity(customerDto.getCity());
+		customerEntity.setEmail(customerDto.getEmail());
+		
+		CustomerEntity customerUpdated = customerRepository.save(customerEntity);
+		
+		CustomerDto customer = new CustomerDto();
+		BeanUtils.copyProperties(customerUpdated, customer);
+		
+		return customer;
+	}
+
 }

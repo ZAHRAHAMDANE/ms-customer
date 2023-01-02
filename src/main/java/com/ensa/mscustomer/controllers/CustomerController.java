@@ -53,9 +53,20 @@ public class CustomerController {
 		
 	}
 	
-	@PutMapping
-	public String updateCustomer() {
-		return "update customer was called";
+	@PutMapping(path="{id}")
+	public CustomerResponse updateCustomer(@PathVariable String id, @RequestBody CustomerRequest customerRequest) {
+
+		CustomerDto customerDto = new CustomerDto();
+		BeanUtils.copyProperties(customerRequest, customerDto); // la liaison entre la couche presentation et la couche service
+		
+		
+		CustomerDto updateCustomer = customerService.updateCustomer(id, customerDto); //passer l'information vers la couche service
+		
+		CustomerResponse customerResponse = new CustomerResponse();
+		
+		BeanUtils.copyProperties(updateCustomer, customerResponse);
+		
+		return customerResponse;
 	}
 	
 	@DeleteMapping
