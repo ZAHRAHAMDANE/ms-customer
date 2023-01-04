@@ -1,5 +1,8 @@
 package com.ensa.mscustomer.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ensa.mscustomer.exceptions.CustomerException;
@@ -37,6 +41,24 @@ public class CustomerController {
 		BeanUtils.copyProperties(customerDto, customerResponse);
 		
 		return new ResponseEntity<CustomerResponse>(customerResponse, HttpStatus.OK); 
+	}
+	
+	@GetMapping
+	public List<CustomerResponse> getAllCustomer(@RequestParam(value="page", defaultValue = "1") int page, @RequestParam(value="limit", defaultValue="5") int limit){
+		
+		if(page > 0) page -= 1;
+		
+		List<CustomerResponse> customersResponse = new ArrayList<>();
+		
+		List<CustomerDto> customers = customerService.getCustomers(page, limit);
+		
+		for(CustomerDto customerDto : customers ) {
+			CustomerResponse customer = new CustomerResponse();
+			BeanUtils.copyProperties(customerDto, customer);
+			customersResponse.add(customer);
+		}
+		
+		return customersResponse;
 	}
 	
 	@PostMapping

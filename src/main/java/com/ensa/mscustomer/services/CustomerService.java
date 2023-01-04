@@ -1,5 +1,7 @@
 package com.ensa.mscustomer.services;
 
+import java.util.List;
+
 import com.ensa.mscustomer.shared.dto.CustomerDto;
 
 public interface CustomerService {
@@ -11,4 +13,6 @@ public interface CustomerService {
 	CustomerDto updateCustomer(String id, CustomerDto customerDto);
 	
 	void deleteCustomer(String customerId);
+	
+	List<CustomerDto> getCustomers(int page, int limit);
 }

@@ -1,11 +1,18 @@
 package com.ensa.mscustomer.services.impl;
 
+import java.awt.print.Pageable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ensa.mscustomer.entities.CustomerEntity;
 import com.ensa.mscustomer.repositories.CustomerRepository;
+import com.ensa.mscustomer.responses.CustomerResponse;
 import com.ensa.mscustomer.services.CustomerService;
 import com.ensa.mscustomer.shared.Utils;
 import com.ensa.mscustomer.shared.dto.CustomerDto;
@@ -85,6 +92,29 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		customerRepository.delete(customerEntity);
 		
+	}
+
+	@Override
+	public List<CustomerDto> getCustomers(int page, int limit) {
+		// TODO Auto-generated method stub
+		
+		List<CustomerDto> customersDto = new ArrayList<>();
+		
+		//Pageable pageableRequest = PageRequest.of(page, limit);
+		
+		Page<CustomerEntity> customerPage =  customerRepository.findAll(PageRequest.of(page, limit));
+		
+		List<CustomerEntity> customers = customerPage.getContent();
+		
+		System.out.println(customers.size());
+		
+		for(CustomerEntity customerEntity : customers ) {
+			CustomerDto customer = new CustomerDto();
+			BeanUtils.copyProperties(customerEntity, customer);
+			customersDto.add(customer);
+		}
+		
+		return customersDto;
 	}
 
 }
